@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { RestaurantsContext } from "../context/RestaurantsContext";
 import RestaurantFinder from "../apis/RestaurantFinder";
 
-export const UpdateRestaurant = () => {
+export const UpdateRestaurant = (props) => {
     const { id } = useParams();
     let navigate = useNavigate();
     const { restaurants } = useContext(RestaurantsContext);
@@ -15,9 +15,9 @@ export const UpdateRestaurant = () => {
         const fetchData = async () => {
             try {
                 const response = await RestaurantFinder.get(`/${id}`);
-                setName(response.data.data.restaurants.name);
-                setLocation(response.data.data.restaurants.location);
-                setPriceRange(response.data.data.restaurants.price_range);
+                setName(response.data.data.restaurant.name);
+                setLocation(response.data.data.restaurant.location);
+                setPriceRange(response.data.data.restaurant.price_range);
             } catch (err) {
                 console.log(err);
             }
@@ -26,6 +26,7 @@ export const UpdateRestaurant = () => {
     }, []);
 
     const handleSubmit = async (e) => {
+        console.log("test");
         e.preventDefault();
         const updatedRestaurant = await RestaurantFinder.put(`/${id}`, {
             name,
@@ -34,6 +35,11 @@ export const UpdateRestaurant = () => {
         });
         navigate("/");
     };
+
+    const handleBack = () => {
+        navigate("/");
+    };
+
     return (
         <div>
             <form action="">
@@ -74,6 +80,11 @@ export const UpdateRestaurant = () => {
                 <button type="submit" onClick={handleSubmit} className="btn btn-primary">
                     Submit
                 </button>
+                <div className="mt-2">
+                    <button type="submit" onClick={handleBack} className="btn btn-primary">
+                        Back
+                    </button>
+                </div>
             </form>
         </div>
     );
