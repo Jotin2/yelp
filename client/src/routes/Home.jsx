@@ -1,12 +1,16 @@
-import React from 'react'
-import { Header } from '../components/Header';
-console.log("test");
-const Home = () => {
-  return (
-    <div>
-      <Header />
-    </div>
-  )
-}
+import React from "react";
+import { Header } from "../components/Header";
+import { AddRestaurant } from "../components/AddRestaurant";
+import RestaurantList from "../components/RestaurantList";
 
-export default Home
+const Home = () => {
+    return (
+        <div>
+            <Header />
+            <AddRestaurant />
+            <RestaurantList />
+        </div>
+    );
+};
+
+export default Home;
